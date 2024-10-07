@@ -1,0 +1,104 @@
+:root {
+    --primario: #be4747;
+    --secundario: #b0b0b0;
+    --terciario: #e5ac49;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn_full {
+    position: fixed;
+    margin: 1rem;
+    background-color: var(--secundario);
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover,
+    &:focus {
+        border-color: var(--primario);
+        background-color: var(--primario);
+        color: white;
+
+    }
+}
+
+.container {
+    /* display: none; */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    backdrop-filter: blur(4px);
+    height: 100dvh;
+    width: 100dvw;
+    display: grid;
+    place-items: center;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    header {
+
+        display: grid;
+        gap: 1rem;
+
+        .titulo {
+            position: relative;
+            font-weight: 300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 55ch;
+        }
+
+        .warning{
+            color: var(--terciario);
+        }
+        span {
+            font-size: 1.2rem;
+
+            a {
+                color: var(--secundario);
+
+                &:hover,
+                &:focus {
+                    color: var(--primario);
+                    font-style: italic;
+                }
+            }
+
+        }
+
+        code {
+            font-size: 20px;
+            font-style: italic;
+            color: var(--primario);
+        }
+
+        button {
+            background-color: var(--secundario);
+            padding: 0.2rem;
+            border-radius: 0.2rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover,
+            &:focus {
+                border-color: var(--primario);
+                background-color: var(--primario);
+                color: white;
+
+            }
+        }
+    }
+}
