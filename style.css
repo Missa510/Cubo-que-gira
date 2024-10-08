@@ -10,6 +10,10 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#musiquita{
+    display: none;
+}
+
 .btn_full {
     position: fixed;
     margin: 1rem;
@@ -37,17 +41,21 @@
     top: 50%;
     transform: translate(-50%, -50%);
     backdrop-filter: blur(4px);
-    height: 100dvh;
+    height: 90dvh;
     width: 100dvw;
-    display: grid;
-    place-items: center;
+    display: flex;
     align-items: center;
     justify-content: center;
     color: white;
 
     header {
 
-        display: grid;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
         gap: 1rem;
 
         .titulo {
@@ -84,11 +92,12 @@
 
         button {
             background-color: var(--secundario);
-            padding: 0.2rem;
-            border-radius: 0.2rem;
+            padding: 0.7rem 1rem;
+            border-radius: 0.4rem;
             font-style: bold;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 75%;
 
             &:hover,
             &:focus {
@@ -103,11 +112,25 @@
 
 @media (max-width: 800px) {
     .titulo{
-        font-size: 16px;
+        font-size: 20px;
         max-width: 40ch;
     }
 
     * {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .titulo{
+        font-size: 14px;
+        max-width: 35ch;
+    }
+
+    * {
+        font-size: 12px;
+    }
+    .btn_close {
         font-size: 12px;
     }
 }
