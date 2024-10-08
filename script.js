@@ -1,5 +1,4 @@
-import * as THREE from 'three';
-
+import * as THREE from 'three';     
 
 // Creamos la escena
 const escena = new THREE.Scene()
@@ -9,8 +8,8 @@ const camara = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const render = new THREE.WebGLRenderer()
 // Para poner musiquita
 const escuchador = new THREE.AudioListener()
-escena.add(escuchador)
 const sonido = new THREE.Audio(escuchador)
+escena.add(escuchador)
 
 function Iniciar() {
 

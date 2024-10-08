@@ -78,7 +78,6 @@
         }
 
         code {
-            font-size: 20px;
             font-style: italic;
             color: var(--primario);
         }
@@ -87,8 +86,7 @@
             background-color: var(--secundario);
             padding: 0.2rem;
             border-radius: 0.2rem;
-            font-size: 0.8rem;
-            font-weight: bold;
+            font-style: bold;
             cursor: pointer;
             transition: all 0.3s ease;
 
@@ -100,5 +98,16 @@
 
             }
         }
+    }
+}
+
+@media (max-width: 800px) {
+    .titulo{
+        font-size: 16px;
+        max-width: 40ch;
+    }
+
+    * {
+        font-size: 12px;
     }
 }
