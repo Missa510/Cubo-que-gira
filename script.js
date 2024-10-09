@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { CONSTANTES_DE_AUDIO } from './constantes_de_audio.js';
 
 // Creamos la escena
 const escena = new THREE.Scene()
@@ -8,24 +9,57 @@ const camara = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const render = new THREE.WebGLRenderer()
 // Creamos el componente de listener
 
+// DOM por fuera
+const $ = (el) => document.querySelector(el)
+const $$ = (el) => document.querySelectorAll(el)
+const $container = $(".container")
+const $songs = $(".songs")
+
+$songs.innerHTML = `<h3>
+    CANCIONES (en órden ascendente):
+</h3>`
+
+const $musiquita_mejor = CONSTANTES_DE_AUDIO.map((audio, i) => {
+
+    const $informacion = `<code>${i + 1}) ${audio.nombre} ~ ${audio.autor}</code>`
+    const $musiquita = `<audio aria-hidden=" true" hidden id="${audio.id}" controls type="audio.mp3" src="${audio.ruta}"></audio>`;
+
+    $songs.innerHTML += $informacion
+    return $musiquita
+})
+
+
+$container.innerHTML += $musiquita_mejor.join('')
+const $canciones = $$('audio')
+const $btn_close = $(".btn_close")
+
+$btn_close.addEventListener("click", CerrarYMusica);
+
+function CerrarYMusica() {
+    $container.classList.add('disabled')
+    $canciones[0].volume = 0.8
+    $canciones[0].play()
+}
+
+$canciones.forEach(($cancion, key) => {
+    $cancion.addEventListener('ended', () => {
+        $canciones[key + 1].volume = 0.8
+        $canciones[key + 1].play()
+    })
+})
+
+/* 
+ME TOMÓ MUCHO TIEMPO DARME CUENTA QUE 
+LAS SOLUCION DEL BOTON AERA COLOCAR PRIMERO
+EL MAP!!! MADURO COÑOETUMADRE
+*/
+
 function Iniciar() {
-    
+
     // DOM
-    const $ = (el) => document.querySelector(el)
-    const $musiquita = $('#musiquita')
-    const $container = $(".container")
-    const $button_close = $(".btn_close")
     const $button = $(".btn_full")
 
-    $button.addEventListener("click", togglePantallaCompleta)
-
-    $button_close.addEventListener("click", () => {
-
-        $container.style.display = "none"
-        $musiquita.volume = 0.8
-        $musiquita.play()
-
-    })
+    $button.addEventListener("click", togglePantallaCompleta);
 
     function togglePantallaCompleta() {
 
@@ -34,16 +68,15 @@ function Iniciar() {
             document.documentElement.requestFullscreen()
             $button.innerText = 'Salir de la pantalla completa'
             render.setSize(window.screen.width, window.screen.height)
+
         } else {
 
             document.exitFullscreen()
             $button.innerText = 'Pantalla completa'
-            render.setSize(window.screen.availWidth, window.screen.availHeight)
+            render.setSize(window.innerWidth, window.screen.availHeight)
         }
 
     }
-
-    // Seteamos la musiquita
 
     // Fin del Los elementos del DOM
 
