@@ -1,8 +1,5 @@
 import * as THREE from 'three';
-import { CONSTANTES_DE_AUDIO } from './constantes_de_audio.js';
-
-// Create a delay funtcion
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import { DOM, $, delay, CheckWebGLCompatibilidad } from './DOM.js';
 
 // Creamos la escena
 const escena = new THREE.Scene()
@@ -10,91 +7,11 @@ const escena = new THREE.Scene()
 const camara = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
 // Creamos el renderizador
 const render = new THREE.WebGLRenderer()
-// Creamos el componente de listener
 
-// DOM por fuera
-const $ = (el) => document.querySelector(el)
-const $$ = (el) => document.querySelectorAll(el)
-const $container = $(".container")
-const $songs = $(".songs")
-const $tooltips = $(".tooltips")
-
-$songs.innerHTML = `<h3>
-    CANCIONES (en órden ascendente):
-</h3>`
-
-const $musiquita_mejor = CONSTANTES_DE_AUDIO.map((audio, i) => {
-
-    const $tooltip = `<div class="tooltip disabled">
-        <span>Estas oyendo: </span>
-        <h3>${audio.nombre}</h3>
-        <h5>Por ${audio.autor}</h5>
-        <section>
-            <a class="spotify" href="${audio.links.Spotify}" target="_blank" rel="noopener noreferrer nofollow">Escuchar en Spotify</a>
-            <a class="youtube_music" href="${audio.links.YoutubeMusic}" target="_blank" rel="noopener noreferrer nofollow">Escuchar en Youtube Music</a>
-        </section>
-    </div>`
-
-    const $informacion = `<code>${i + 1}) ${audio.nombre} ~ ${audio.autor}</code>`
-    const $musiquita = `<audio aria-hidden=" true" hidden id="${audio.id}" controls type="audio.mp3" src="${audio.ruta}"></audio>`;
-
-    $tooltips.innerHTML += $tooltip
-    $songs.innerHTML += $informacion
-    return $musiquita
-})
-
-$container.innerHTML += $musiquita_mejor.join('')
-const $canciones = $$('audio')
-const $btn_close = $(".btn_close")
-
-$btn_close.addEventListener("click", CerrarYMusica);
-
-function CerrarYMusica() {
-    $container.classList.add('disabled')
-    $canciones[0].volume = 0.8
-    $canciones[0].play()
-}
-
-$canciones.forEach(($cancion, key) => {
-
-    $cancion.addEventListener('play', () => {
-
-        const $tooltip = $$('.tooltip');
-        $tooltip.item(key).classList.add('enabled')
-        $tooltip.item(key).classList.remove('disabled')
-        setTimeout(() => {
-            $tooltip.item(key).classList.add('disabled')
-            $tooltip.item(key).classList.remove('enabled')
-        }, 5000)
-
-    })
-
-    $cancion.addEventListener('ended', () => {
-
-        if ($canciones.item(key + 1)) {
-
-            $canciones.item(key + 1).volume = 0.8
-            $canciones[key + 1].play()
-            
-        } else {
-
-            $canciones.item(0).volume = 0.8
-            $canciones.item(0).play()
-        }
-
-
-    })
-
-})
-
-/* 
-ME TOMÓ MUCHO TIEMPO DARME CUENTA QUE 
-LAS SOLUCION DEL BOTON ERA COLOCAR PRIMERO
-EL MAP!!! MADURO COÑOETUMADRE
-*/
+// Para evitar que se vea mal cuando cambias la resolución de la ventana
+window.onresize = () => delay(300).finally(() => render.setSize(window.screen.availWidth, window.screen.availHeight))
 
 function Iniciar() {
-
     // DOM
     const $button = $(".btn_full")
 
@@ -112,7 +29,7 @@ function Iniciar() {
 
             document.exitFullscreen()
             $button.innerText = 'Pantalla completa'
-            render.setSize(window.innerWidth, window.screen.availHeight)
+            render.setSize(window.screen.availWidth, window.screen.availHeight)
         }
 
     }
@@ -162,7 +79,7 @@ function Iniciar() {
 
     // Definimos la geometria del rombo
     const geometria_linea = new THREE.BufferGeometry().setFromPoints(puntos)
-    
+
     // 2: Definimos el material
     const material = new THREE.MeshStandardMaterial({
         color: 0xffffff,
@@ -217,4 +134,10 @@ function Iniciar() {
     }
 }
 
-Iniciar()
+
+if (CheckWebGLCompatibilidad()) {
+    DOM()
+    Iniciar()
+} else {
+    alert("Tu navegador no soporta WebGL")
+}

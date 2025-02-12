@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Es solo un cubo que gira">
     <meta name="authors" content="Missa510UwU">
     <title>Cubo que gira</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="shortcut icon" href="./favicon.svg" type="image/x-icon">
     <script type="importmap">
         {
             "imports": {
@@ -19,23 +18,29 @@
             }
         }
       </script>
-    <script type="module" src="script.js"></script>
+    <script type="module" src="scripts/script.js"></script>
 </head>
 
 <body>
     <div class="container">
 
         <header>
-            <h1 class="titulo">Esta es una página hecha con Three JS y JavaScript vanilla: un cubo que gira (espero te
-                guste &hearts;)</h1>
-            <span>
-                Sitio creador por <a target="_blank" rel="noopener noreferrer nofollow"
-                    href="http://github.com/Missa510">Missa510UwU</a>
-            </span>
-            <div class="songs"></div>
-            <button class="btn_close">
-                Quitar mensaje y reproducir música
-            </button>
+            <div class="content">
+                <h1 class="titulo">Cubo que gira</h1>
+                <p>
+                    Este es un sitio web en donde puedes ver a un cubo girar mientras escuchas canciones cuidadosamente seleccionadas de fondo mientras te relajas. Este es tu espacio
+                </p>
+                <div id="warning" hidden></div>
+                <span class="help">Puedes colocar el modo la pantalla completa en la parte superior izquierda de tu pantalla</span>
+                <div class="songs"></div>
+                <button class="btn_close">
+                    Quitar mensaje y reproducir música
+                </button>
+                <span>
+                    Sitio creador por <a target="_blank" rel="noopener noreferrer nofollow"
+                        href="http://github.com/Missa510">Missa510UwU</a>
+                </span>
+            </div>
         </header>
 
     </div>

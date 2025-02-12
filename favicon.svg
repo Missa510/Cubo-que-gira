@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <g data-name="Layer 2">
+    <g data-name="Layer 1">
+      <path fill="#cd00ff" d="M0 12v40l32 12 32-12V12L32 0 0 12z"/>
+      <path fill="#a400cc" d="M64 12v40L32 64V24l32-12z"/>
+      <path fill="#fff" opacity=".4" d="M32 0 0 12l32 12 32-12L32 0z"/>
+    </g>
+  </g>
+</svg>
