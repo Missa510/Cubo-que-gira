@@ -9,11 +9,15 @@ import { CONSTANTES_DE_AUDIO } from './constantes_de_audio.js';
 export const $ = (el) => document.querySelector(el)
 const $$ = (el) => document.querySelectorAll(el)
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
 // Checkear la compatibilidad con WEBGL 2.0
 export const CheckWebGLCompatibilidad = () => {
     try {
         const canvas = document.createElement('canvas')
-        if(!!window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl') || canvas.getContext("webgl2"))){
+        if(
+            Boolean(window.WebGL2RenderingContext) && 
+            (canvas.getContext('webgl') || canvas.getContext('experimental-webgl') || canvas.getContext("webgl2"))
+        ){
             canvas.remove()
             return true
         }

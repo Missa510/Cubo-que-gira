@@ -1,0 +1,111 @@
+:root {
+    color-scheme: light dark;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
+    line-height: 1.6;
+}
+
+header,
+#que-es-webgl,
+#aprende-mas,
+#descargar-navegadores,
+footer {
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #b92d2d;
+    /* Rojo llamativo para el título de advertencia */
+}
+
+h2 {
+    color: #1976d2;
+    /* Azul para los subtítulos */
+}
+
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+a {
+    color: #1976d2;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    background-color: #e0e0e0;
+    font-size: 0.9em;
+    margin-top: 0;
+    /* Eliminar el margen superior para que se pegue al contenido */
+    margin-bottom: 0;
+    /* Eliminar el margen inferior */
+    padding: 15px;
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+
+    header,
+    #que-es-webgl,
+    #aprende-mas,
+    #descargar-navegadores,
+    footer {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #333;
+        color: #f8f8f8;
+    }
+
+    header,
+    #que-es-webgl,
+    #aprende-mas,
+    #descargar-navegadores,
+    footer{
+        background: rgb(21, 21, 21);
+    }
+
+    h1{
+        color: rgb(234, 88, 88);
+    }
+}

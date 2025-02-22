@@ -37,11 +37,8 @@ body {
     font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
-
-    &:focus,
-    &:hover {
-        transition: var(--transision_hover);
-    }
+    transition: var(--transision_hover);
+    
 
     &:hover,
     &:focus,
@@ -135,6 +132,7 @@ body {
             a {
                 text-decoration: none;
                 color: var(--secundario);
+                transition: var(--transision_hover);
 
                 &:hover,
                 &:focus {
@@ -153,11 +151,7 @@ body {
             border-radius: 10px;
             border: 1.5px solid var(--secundario);
             background-color: black;
-
-            &:focus,
-            &:hover {
-                transition: var(--transision_hover);
-            }
+            transition: var(--transision_hover);
 
             &:hover,
             &:focus,
@@ -225,11 +219,8 @@ body {
                 width: 100%;
                 padding: .3rem .5rem;
                 border-radius: .4rem;
-
-                &:hover,
-                &:focus{
-                    transition: var(--transision_hover);
-                }
+                transition: var(--transision_hover);
+                
             }
 
             .spotify {
