@@ -155,5 +155,5 @@ if (CheckWebGLCompatibilidad()) {
     DOM()
     Iniciar()
 } else {
-    location.href = "/unsupported/"
+    location.href = "/unsupported/Index.html"
 }
