@@ -14,10 +14,10 @@ export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 export const CheckWebGLCompatibilidad = () => {
     try {
         const canvas = document.createElement('canvas')
-        if(
-            Boolean(window.WebGL2RenderingContext) && 
+        if (
+            Boolean(window.WebGL2RenderingContext) &&
             (canvas.getContext('webgl') || canvas.getContext('experimental-webgl') || canvas.getContext("webgl2"))
-        ){
+        ) {
             canvas.remove()
             return true
         }
@@ -27,8 +27,9 @@ export const CheckWebGLCompatibilidad = () => {
 }
 
 // Verificar si usa otros navegadores
-const FireFoxAndOthers = () => {
+const isFireFoxUsed = () => {
     const navegadorWeird = navigator.userAgent.toLowerCase()
+
     return Boolean(
         !navegadorWeird.includes("applewebkit") ||
         navegadorWeird.includes("firefox")
@@ -42,9 +43,29 @@ export function DOM() {
     const $warning = $('#warning')
     const $songs = $(".songs")
     const $tooltips = $(".tooltips")
+    const $button = $(".btn_full")
+
+    $button.addEventListener("click", togglePantallaCompleta);
+
+    function togglePantallaCompleta() {
+
+        if (!document.fullscreenElement) {
+
+            document.documentElement.requestFullscreen()
+            $button.innerText = 'Salir de la pantalla completa'
+            render.setSize(window.screen.width, window.screen.height)
+
+        } else {
+
+            document.exitFullscreen()
+            $button.innerText = 'Pantalla completa'
+            render.setSize(window.screen.availWidth, window.screen.availHeight)
+        }
+
+    }
 
     $songs.innerHTML = `<h3>
-        nombre de las canciones:
+        canciones:
     </h3>`
 
     const $musiquita_mejor = CONSTANTES_DE_AUDIO.map((audio, i) => {
@@ -73,7 +94,7 @@ export function DOM() {
     const $canciones = $$('audio')
     const $btn_close = $(".btn_close")
 
-    if(FireFoxAndOthers()){
+    if (isFireFoxUsed()) {
         $warning.removeAttribute("hidden")
         $warning.innerHTML += `
             <span class="warning">
@@ -95,15 +116,14 @@ export function DOM() {
 
     $canciones.forEach(($cancion, key) => {
 
-        $cancion.addEventListener('play', () => {
+        $cancion.addEventListener('play', async () => {
 
             const $tooltip = $$('.tooltip')
             $tooltip.item(key).classList.add('enabled')
             $tooltip.item(key).classList.remove('disabled')
-            delay(5000).finally(() => {
-                $tooltip.item(key).classList.add('disabled')
-                $tooltip.item(key).classList.remove('enabled')
-            })
+            await delay(5000)
+            $tooltip.item(key).classList.add('disabled')
+            $tooltip.item(key).classList.remove('enabled')
 
         })
 

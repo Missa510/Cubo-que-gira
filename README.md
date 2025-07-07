@@ -2,6 +2,9 @@
 
 Es una página de, literalmente, un cubo que gira
 
+## version 4.0
+* Se agregaron más objetos y mejoró la UI
+
 ### version 3.1
 * Se agregó un apartado de unsupported y el cubo se ilumina con unas luces diferentes cada vez que se ingresa o actualiza la página
 
@@ -14,4 +17,5 @@ Es una página de, literalmente, un cubo que gira
 ## version 1.0
 * La músiquita se repoduce cuando oprimes el botón
 
+<br>
 > Missa510 ~ Octubre del 2024
