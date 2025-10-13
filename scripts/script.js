@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { DOM, $, delay, CheckWebGLCompatibilidad } from './DOM.js';
+import { DOM, delay, CheckWebGLCompatibilidad } from './DOM.js';
 
 // Creamos la escena
 const escena = new THREE.Scene()
@@ -11,11 +11,11 @@ const render = new THREE.WebGLRenderer()
 const reloj = new THREE.Clock()
 
 // Para evitar que se vea mal cuando cambias la resolución de la ventana
-window.onresize = async (e) => {
-    await delay(150)
-    // console.log(e)
-    render.setSize(e.srcElement.innerWidth, e.srcElement.innerHeight)
-    camara.aspect = e.srcElement.innerWidth / e.srcElement.innerHeight
+onresize = async (e) => {
+    await delay(250)
+    render.setSize(e.target.innerWidth, e.target.innerHeight)
+    camara.aspect = e.target.innerWidth / e.target.innerHeight
+    render.render(escena, camara)
 }
 
 function Hexadecimal() {
@@ -31,7 +31,6 @@ function Hexadecimal() {
 }
 const lucesAlAzar = () => {
     const color_hexadecimal = `0x${Hexadecimal()}`
-    // console.log(color_hexadecimal)
     return parseInt(color_hexadecimal, 16)
 }
 
@@ -159,6 +158,7 @@ function Iniciar() {
     const estrellas = new THREE.Points(geomettria_estrella, material_estrella)
 
     // Seteamos la camara
+    camara.aspect = window.innerWidth / window.innerHeight
     camara.position.z = 4
 
     esfera1.position.x = 8

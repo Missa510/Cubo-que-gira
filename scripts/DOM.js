@@ -3,7 +3,7 @@ ME TOMÓ MUCHO TIEMPO DARME CUENTA QUE
 LAS SOLUCION DEL BOTON ERA COLOCAR PRIMERO
 EL MAP!!! MADURO COÑOETUMADRE
 */
-import { CONSTANTES_DE_AUDIO } from './constantes_de_audio.js';
+import { CONSTANTES_DE_AUDIO } from './constantes_de_audio.js'
 
 // Exportar las constantes de las funciones importantes XDDXDXDXDX
 export const $ = (el) => document.querySelector(el)
@@ -29,11 +29,14 @@ export const CheckWebGLCompatibilidad = () => {
 // Verificar si usa otros navegadores
 const isFireFoxUsed = () => {
     const navegadorWeird = navigator.userAgent.toLowerCase()
+    const isFirefox = navegadorWeird.includes("firefox") && navegadorWeird.includes("gecko")
 
-    return Boolean(
+    const isItReallyTrueFirefoxIsUsed = Boolean(
         !navegadorWeird.includes("applewebkit") ||
-        navegadorWeird.includes("firefox")
+        isFirefox
     )
+
+    return isItReallyTrueFirefoxIsUsed
 }
 
 // Exportar el DOM para alivianar el script principal
@@ -44,8 +47,19 @@ export function DOM() {
     const $songs = $(".songs")
     const $tooltips = $(".tooltips")
     const $button = $(".btn_full")
+    let AudioContext = []
 
-    $button.addEventListener("click", togglePantallaCompleta);
+    if (isFireFoxUsed()) {
+        $warning.innerHTML += `
+            <span class="warning">
+                <strong>Advertencia!</strong>
+                Puede que tu navegador no sea compatible con todas las caracteríisticas del sitio. Siéntete libre de cambiar de navegador si deseas
+            </span>
+        `
+        $warning.removeAttribute("hidden")
+    }
+
+    $button.addEventListener("click", togglePantallaCompleta)
 
     function togglePantallaCompleta() {
 
@@ -70,46 +84,50 @@ export function DOM() {
 
     const $musiquita_mejor = CONSTANTES_DE_AUDIO.map((audio, i) => {
 
+    const hasSpotify = Boolean(audio.links?.Spotify)
+    const hasYoutubeMusic = Boolean(audio.links?.YoutubeMusic)
+
         const $tooltip = `<article class="tooltip disabled">
 
             <img src="images/covers/${audio.id}.webp" alt=${audio.id}>
             <span>Estas oyendo: </span>
             <h3>${audio.nombre}</h3>
-            <h5>${audio.autor}</h5>
+            <h5>${audio.autor.toUpperCase()}</h5>
             <section>
-                <a class="spotify" href="${audio.links.Spotify}" target="_blank" rel="noopener noreferrer nofollow">Escuchar en Spotify</a>
-                <a class="youtube_music" href="${audio.links.YoutubeMusic}" target="_blank" rel="noopener noreferrer nofollow">Escuchar en Youtube Music</a>
+                ${hasSpotify ? `<a class="spotify" href="${audio.links.Spotify}" target="_blank" rel="noopener noreferrer nofollow">Escuchar en Spotify</a>` : ``}
+
+                ${hasYoutubeMusic ? `<a class="youtube_music" href="${audio.links.YoutubeMusic}" target="_blank" rel="noopener noreferrer nofollow">Escuchar en Youtube Music</a>` : ``}
             </section>
         </article>`
 
         const $informacion = `<code>${i + 1}) ${audio.nombre} ~ ${audio.autor}</code>`
-        const $musiquita = `<audio aria-hidden=" true" hidden id="${audio.id}" controls type="audio.mp3" src="audio/${audio.id}.mp3"></audio>`;
+        const cancionPath = `audio/${audio.id}.mp3`
+        const $musiquita = new Audio(cancionPath)
+
+        // Usando la propiedad Audio() en lugar de crear el elemento con createElement
+        $musiquita.setAttribute("aria-hidden", "true")
+        $musiquita.setAttribute("hidden", "")
+        $musiquita.id = audio.id
+        $musiquita.controls = true
+        $musiquita.type = "audio/mp3"
+        $musiquita.volume = 0.8
+        AudioContext.push($musiquita)
 
         $tooltips.innerHTML += $tooltip
         $songs.innerHTML += $informacion
-        return $musiquita
+        return $musiquita.outerHTML
     })
 
     $container.innerHTML += $musiquita_mejor.join('')
+
     const $canciones = $$('audio')
     const $btn_close = $(".btn_close")
-
-    if (isFireFoxUsed()) {
-        $warning.removeAttribute("hidden")
-        $warning.innerHTML += `
-            <span class="warning">
-                <strong>Advertencia!</strong>
-                Puede que tu navegador no sea compatible con todas las caracteríisticas del sitio. Siéntete libre de cambiar de navegador si deseas
-            </span>
-        `
-    }
 
     $btn_close.addEventListener("click", CerrarYMusica)
 
     function CerrarYMusica() {
 
         $container.classList.add('disabled')
-        $canciones[0].volume = 0.8
         $canciones[0].play()
         $btn_close.removeEventListener("click", CerrarYMusica)
     }
@@ -129,16 +147,9 @@ export function DOM() {
 
         $cancion.addEventListener('ended', () => {
 
-            if ($canciones.item(key + 1)) {
+            if ($canciones.item(key + 1)) { $canciones[key + 1].play() }
 
-                $canciones.item(key + 1).volume = 0.8
-                $canciones[key + 1].play()
-
-            } else {
-
-                $canciones.item(0).volume = 0.8
-                $canciones.item(0).play()
-            }
+            else { $canciones.item(0).play() }
         })
     })
 }
